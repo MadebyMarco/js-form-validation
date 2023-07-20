@@ -7,5 +7,27 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <form method="dialog" novalidate>
+      <fieldset>
+        <label for="country">Country</label>
+        <input id="country" type="text" />
+
+        <label for="zipCode">Zip Code</label>
+        <input id="zipCode" type="numbers" />
+      </fieldset>
+
+      <fieldset>
+        <label for="email">Email</label>
+        <input id="email" type="email" />
+
+        <label for="password">Password</label>
+        <input id="password" type="password" />
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" type="password" />
+        <button type="submit">Submit</button>
+      </fieldset>
+    </form>
+  </body>
 </html>
