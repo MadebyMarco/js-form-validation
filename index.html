@@ -12,22 +12,27 @@
       <fieldset>
         <label for="country">Country</label>
         <input id="country" type="text" />
+        <small id="country"></small>
 
         <label for="zipCode">Zip Code</label>
         <input id="zipCode" type="numbers" />
+        <small id="email"></small>
       </fieldset>
 
       <fieldset>
         <label for="email">Email</label>
         <input id="email" type="email" />
+        <small id="email"></small>
 
         <label for="password">Password</label>
-        <input id="password" type="password" />
+        <input id="password" type="password" required minlength="5" />
+        <small id="password"></small>
 
         <label for="confirmPassword">Confirm Password</label>
         <input id="confirmPassword" type="password" />
-        <button type="submit">Submit</button>
+        <small id="confirmPassword"></small>
       </fieldset>
+      <button type="submit">SUBMIT</button>
     </form>
   </body>
 </html>
