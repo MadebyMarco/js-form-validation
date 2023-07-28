@@ -37,6 +37,8 @@ small {
   margin-top: 5px;
   margin-bottom: 20px;
   justify-self: start;
+  color: #aa4465;
+  font-weight: bold;
 }
 
 .invalid {
@@ -45,6 +47,10 @@ small {
 
 .valid {
   border-bottom-color: greenyellow;
+}
+
+input:invalid {
+  border-bottom-color: #aa4465;
 }
 
 input:focus {
