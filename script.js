@@ -174,17 +174,29 @@ function errorHandler(element) {
     case "country":
       if (!verifyCountry(country.value)) {
         showError(country, "Please enter a valid country");
-      } else clearError(country);
+        element.classList.add("invalid");
+      } else {
+        clearError(country);
+        element.classList.remove("invalid");
+      }
       break;
     case "zipCode":
       if (!verifyCountryAndZipcode(country.value, zipCode.value)) {
         showError(zipCode, "The zip code and country do not match");
-      } else clearError(zipCode);
+        element.classList.add("invalid");
+      } else {
+        clearError(zipCode);
+        element.classList.remove("invalid");
+      }
       break;
     case "email":
       if (!verifyEmailCharacters()) {
         showError(email, "Please make sure your email includes an @ and a . ");
-      } else clearError(email);
+        element.classList.add("invalid");
+      } else {
+        clearError(email);
+        element.classList.remove("invalid");
+      }
       break;
     case "password":
       if (!verifyInputValueLength(password)) {
@@ -192,12 +204,20 @@ function errorHandler(element) {
           password,
           "Please enter a password between 5 and 20 characters"
         );
-      } else clearError(password);
+        element.classList.add("invalid");
+      } else {
+        clearError(password);
+        element.classList.remove("invalid");
+      }
       break;
     case "confirmPassword":
       if (!verifyPasswordsAreEqual()) {
         showError(confirmPassword, "These passwords do not match");
-      } else clearError(confirmPassword);
+        element.classList.add("invalid");
+      } else {
+        clearError(confirmPassword);
+        element.classList.remove("invalid");
+      }
       break;
     default:
       break;
