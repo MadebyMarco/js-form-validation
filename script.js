@@ -1,5 +1,3 @@
-console.log("initial");
-
 /**
  * Function easy to hard list
  * 1. compare password and confirm password
@@ -14,10 +12,9 @@ const confirmPassword = form.querySelector("input#confirmPassword");
 const email = form.querySelector("input#email");
 const zipCode = form.querySelector("input#zipCode");
 const country = form.querySelector("input#country");
-form.oninput = (event) => {
-  verifyInputValueLength(password);
-  verifyPasswordsAreEqual();
-  verifyEmailCharacters();
+const submitButton = form.querySelector("form > button");
+submitButton.onclick = (event) => {
+  if (!verifyForm()) event.preventDefault();
 };
 
 function verifyInputValueLength(element) {
@@ -63,10 +60,6 @@ function verifyEmailCharacters() {
     // email.classList.add("invalid");
   }
 }
-
-verifyInputValueLength(password);
-verifyPasswordsAreEqual();
-verifyEmailCharacters();
 
 // asked chat gpt to create this object with names as values and regex as keys
 const countryZipRegex = {
@@ -135,7 +128,78 @@ const countryZipRegex = {
 };
 
 function verifyCountryAndZipcode(country, zipcode = "") {
+  if (!countryZipRegex[country]) return;
   return countryZipRegex[country].test(zipcode);
 }
 
-console.log(verifyCountryAndZipcode("Japan", "919-1911"));
+function verifyCountry(country) {
+  if (countryZipRegex[country]) return true;
+  return false;
+}
+
+function verifyForm() {
+  // verify country
+  if (
+    verifyCountry(country.value) &&
+    // verify zipcode
+    verifyCountryAndZipcode(country.value, zipCode.value) &&
+    // verify email
+    verifyEmailCharacters() &&
+    // verify password
+    verifyInputValueLength(password) &&
+    //verify passwords are equal
+    verifyPasswordsAreEqual()
+  ) {
+    return true;
+  } else return false;
+}
+
+function showError(element, message) {
+  const errorField = element.nextElementSibling;
+  errorField.textContent = message;
+}
+
+function clearError(element) {
+  const errorField = element.nextElementSibling;
+  errorField.textContent = "";
+}
+
+form.addEventListener("focusout", (event) => {
+  if (!event.target.nodeName === "INPUT") return;
+  errorHandler(event.target);
+});
+
+function errorHandler(element) {
+  switch (element.id) {
+    case "country":
+      if (!verifyCountry(country.value)) {
+        showError(country, "Please enter a valid country");
+      } else clearError(country);
+      break;
+    case "zipCode":
+      if (!verifyCountryAndZipcode(country.value, zipCode.value)) {
+        showError(zipCode, "The zip code and country do not match");
+      } else clearError(zipCode);
+      break;
+    case "email":
+      if (!verifyEmailCharacters()) {
+        showError(email, "Please make sure your email includes an @ and a . ");
+      } else clearError(email);
+      break;
+    case "password":
+      if (!verifyInputValueLength(password)) {
+        showError(
+          password,
+          "Please enter a password between 5 and 20 characters"
+        );
+      } else clearError(password);
+      break;
+    case "confirmPassword":
+      if (!verifyPasswordsAreEqual()) {
+        showError(confirmPassword, "These passwords do not match");
+      } else clearError(confirmPassword);
+      break;
+    default:
+      break;
+  }
+}
